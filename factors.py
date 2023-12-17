@@ -1,17 +1,13 @@
-def factorize_numbers(file_path):
-    try:
-        with open(file_path, 'r') as file:
-            numbers = [int(line.strip()) for line in file]
+import sys
+import factors
 
-        factorizations = []
-        for num in numbers:
-            for i in range(2, int((num ** 0.5)) + 1):
-                if num % i == 0:
-                    factorizations.append(f"{num}={int(num/i)}*{i}")
-                    break
-            else:
-                factorizations.append(f"{num}={num}*1")
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: factors <file>")
+        sys.exit(1)
 
-        return factorizations
-    except Exception as e:
-        return [f"Error: {e}"]
+    file_path = sys.argv[1]
+    factorizations = factors.factorize_numbers(file_path)
+
+    for factorization in factorizations:
+        print(factorization)
