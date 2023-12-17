@@ -1,19 +1,17 @@
-import sys
+def factorize_numbers(file_path):
+    try:
+        with open(file_path, 'r') as file:
+            numbers = [int(line.strip()) for line in file]
 
-def factorPrime():
-    numbers = sys.argv[1]
-    numbers = open(numbers,"r")
-    numbers = numbers.readlines()
-    for number in numbers:
-        number = int(number)
-        for i in range(2,int((number**0.5))+1):
-            if((int(number % i)) == 0):
-                if((i % 2) != 0 or ((number/2) % 2) != 0):
-                    print("{} = {} * {}".format(number,int(number/i),i))
+        factorizations = []
+        for num in numbers:
+            for i in range(2, int((num ** 0.5)) + 1):
+                if num % i == 0:
+                    factorizations.append(f"{num}={int(num/i)}*{i}")
                     break
-                else:
-                    continue
             else:
-                continue
+                factorizations.append(f"{num}={num}*1")
 
-factorPrime()
+        return factorizations
+    except Exception as e:
+        return [f"Error: {e}"]
